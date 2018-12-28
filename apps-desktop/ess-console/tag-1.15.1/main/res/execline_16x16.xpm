@@ -1,0 +1,24 @@
+/* XPM */
+static char *execline_16x16_xpm[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 3 1",
+"  c None",
+". c #3030ff",
+"+ c #fefeff",
+"                ",
+"                ",
+"                ",
+"                ",
+"                ",
+"                ",
+"       ++       ",
+"      +..+      ",
+"      +..+      ",
+"       ++       ",
+"                ",
+"                ",
+"                ",
+"                ",
+"                ",
+"                ",
+};

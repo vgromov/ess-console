@@ -1,0 +1,100 @@
+﻿<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+<channel>
+<title>Консоль разработки сценариев скрипта ess</title>
+<link>
+http://vgromov.ru/dl/esfwx/tools/essconsole/updcast.xml
+</link>
+<description>Список улучшений и исправлений</description>
+<language>ru</language>
+<item>
+<title>Версия 1.15.0</title>
+<pubDate>26.12.2018 16:10:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.15.0.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.15.0.setup32.exe" sparkle:version="1.15.0" length="18407280" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.14.9</title>
+<pubDate>06.11.2018 13:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.14.9.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.14.9.setup32.exe" sparkle:version="1.14.9" length="18432336" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.14.8</title>
+<pubDate>26.07.2018 13:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.14.8.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.14.8.setup32.exe" sparkle:version="1.14.8" length="25743264" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.14.7</title>
+<pubDate>10.06.2018 13:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.14.7.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.14.7.setup32.exe" sparkle:version="1.14.7" length="25743264" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.14.6.1</title>
+<pubDate>21.05.2018 13:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.14.6.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.14.6.setup32.exe" sparkle:version="1.14.6.1" length="25743264" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.14.6</title>
+<pubDate>01.05.2018 13:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.14.6.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.14.6.setup32.exe" sparkle:version="1.14.6" length="25743264" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.14.5</title>
+<pubDate>28.04.2018 13:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.14.5.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.14.5.setup32.exe" sparkle:version="1.14.5" length="20086784" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.14.4</title>
+<pubDate>16.04.2018 13:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.14.4.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.14.4.setup32.exe" sparkle:version="1.14.4" length="20086784" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.14.3</title>
+<pubDate>06.04.2018 13:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.14.3.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.14.3.setup32.exe" sparkle:version="1.14.3" length="20086784" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.14.2</title>
+<pubDate>26.03.2018 13:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.14.2.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.14.2.setup32.exe" sparkle:version="1.14.2" length="5598888" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.13.3</title>
+<pubDate>24.05.2017 16:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.13.3.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.13.3.setup32.exe" sparkle:version="1.13.3" length="5598888" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.13.2</title>
+<pubDate>15.05.2017 16:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.13.2.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.13.2.setup32.exe" sparkle:version="1.13.2" length="5598888" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.13.1</title>
+<pubDate>07.04.2017 8:00:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.13.1.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.13.1.setup32.exe" sparkle:version="1.13.1" length="5541888" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.13</title>
+<pubDate>04.04.2017 18:02:02 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.13.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.13.setup32.exe" sparkle:version="1.13" length="5541888" type="application/octet-stream"/>
+</item>
+<item>
+<title>Версия 1.12</title>
+<pubDate>21.03.2017 20:02:02 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.12.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.12.setup32.exe" sparkle:version="1.12" length="5538032" type="application/octet-stream"/>
+</item>
+</channel>
+</rss>

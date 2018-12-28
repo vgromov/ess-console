@@ -1,0 +1,42 @@
+/* XPM */
+static char *script_file_16x16_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 19 1",
+/* colors */
+"  c None",
+". c #feffff",
+"X c #f6e4c7",
+"o c #e8b460",
+"O c #eaba6d",
+"+ c #e9b666",
+"@ c #f0d1a0",
+"# c #e7ae56",
+"$ c #f4dab0",
+"% c #efc98d",
+"& c #faeedb",
+"* c #f5e1be",
+"= c #e6ab4c",
+"- c #eec788",
+"; c #f0ce98",
+": c #f0cc93",
+"> c #f3d7aa",
+", c #ebbc72",
+"< c #f7e5cb",
+/* pixels */
+" .X.oooOoo+OOO@.",
+".o#$.#ooooooooo@",
+"%oo#&*=#####oooo",
+"-oooO...........",
+".oooo#######@.  ",
+".oooooooooooo.  ",
+" .ooo&....&oo;. ",
+" .%ooooooooooo. ",
+"  .ooo&....&oo:.",
+"   .ooooooooooo.",
+"   .:oo&....&oo>",
+".....ooooooooooO",
+"oooo.#o&....&ooo",
+",oo-.#oooooooooO",
+".o#.:oooooooooo.",
+" .#<#ooooooooo. "
+};
