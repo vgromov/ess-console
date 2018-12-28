@@ -512,17 +512,17 @@ void EsScriptEditorView::operatorAndSubjGetLeftOfPos(int curPos, wxString& subj,
     if(0 == static_cast<int>(uc))
       continue;
 
-    if( uc == wxT(';') || !uc.IsAscii() )
-      return;
+    if( wxT(';') == uc || wxT('\\') == uc || !uc.IsAscii() )
+      break;
 
-    if(wxIsspace(uc) || wxIscntrl(uc))
+    if(wxIsspace(uc) || wxIscntrl(uc) )
     {
       if(searchStateSubj == state) //< We're collecting subj, break immediately
-        return;
+        break;
       else if(searchStateOP == state) //< We were collecting op, switch to subj-idle
       {
-        if( !searchSubj )
-          return;
+        if(!searchSubj)
+          break;
 
         state = searchStateSubjIdle;
       }
@@ -535,7 +535,7 @@ void EsScriptEditorView::operatorAndSubjGetLeftOfPos(int curPos, wxString& subj,
       if(searchStateIdle == state)
         state = searchStateOP; //< Collecting operator
       else if(searchStateSubj == state) //< We were collecting subj. exit immediately
-        return;
+        break;
       
       if(searchStateOP == state)
       {
@@ -548,7 +548,7 @@ void EsScriptEditorView::operatorAndSubjGetLeftOfPos(int curPos, wxString& subj,
     else if( searchStateSubjIdle == state || searchStateOP == state || searchStateSubj == state ) //< We were still collecting op, in idle subj, or in collecting subj
     {
       if( !searchSubj )
-        return;
+        break;
 
       if( searchStateOP == state )
         state = searchStateSubj; //< Collecting subj
@@ -559,10 +559,24 @@ void EsScriptEditorView::operatorAndSubjGetLeftOfPos(int curPos, wxString& subj,
         subj = uc + subj;
     } 
   }
+
+  ES_DEBUG_TRACE(
+    esT("operatorAndSubjGetLeftOfPos(from: %d, subj: %s, op: %s, searchSubj: %d)"),
+    curPos,
+    EsVariant(
+      subj.wc_str(),
+      EsVariant::ACCEPT_STRING
+    ),
+    EsVariant(
+      op.wc_str(),
+      EsVariant::ACCEPT_STRING
+    ),
+    (int)searchSubj
+  );
 }
 //--------------------------------------------------------------------------------
 
-wxString EsScriptEditorView::autocompletionListPrepare(int curPos, const EsString& filter)
+wxString EsScriptEditorView::autocompletionListPrepare(int curPos, const EsString& filter, wxString subj, wxString op)
 {
   EsVariant metaLookup;
   bool scriptedMetaInfo = false;
@@ -610,27 +624,13 @@ wxString EsScriptEditorView::autocompletionListPrepare(int curPos, const EsStrin
 
   // Try to get local context, if any
   //
-  wxString subj;
-  wxString op;
-  operatorAndSubjGetLeftOfPos(
-    curPos, 
-    subj, 
-    op
-  );
+  if(subj.IsEmpty() && op.IsEmpty())
+    operatorAndSubjGetLeftOfPos(
+      curPos,
+      subj,
+      op
+    );
 
-  ES_DEBUG_TRACE(
-    esT("operatorAndSubjGetLeftOfPos(from: %d, subj: %s, op: %s)"),
-    curPos,
-    EsVariant(
-      subj.wc_str(),
-      EsVariant::ACCEPT_STRING
-    ),
-    EsVariant(
-      op.wc_str(),
-      EsVariant::ACCEPT_STRING
-    )
-  );
-  
   if(0 == op.Cmp(wxT("#"))) //< Get variant services
   {
     autocompletionItemsAppend(
@@ -839,22 +839,15 @@ void EsScriptEditorView::autocompletionShow(bool force /*= false*/)
   int currentPos = GetCurrentPos();
 
   // Display the autocompletion list, emulating entered count of chars
-  int enteredTotal = currentPos - WordStartPosition( //< Count even non word chars on left to get entered chars
-    currentPos,
-    false
-  );
-
   int wordStart = WordStartPosition( //< Get only word chars as filter
     currentPos,
     true
   );
   int enteredWord = currentPos - wordStart;
-  if(enteredWord < 0)
-    enteredWord = 0;
 
   EsString filter;
-  if(enteredTotal < 0)
-    enteredTotal = 0;
+  if(enteredWord < 0)
+    enteredWord = 0;
   else
     filter = GetTextRange(
       wordStart,
@@ -862,22 +855,43 @@ void EsScriptEditorView::autocompletionShow(bool force /*= false*/)
     ).wc_str();
 
   ES_DEBUG_TRACE(
-    esT("EsScriptEditorView::autocompletionShow(force=%d), curPos=%d, enteredTotal=%d enteredWord=%d, filter=%s"),
+    esT("EsScriptEditorView::autocompletionShow(force=%d), curPos=%d, enteredWord=%d, filter=%s"),
     (int)force,
     currentPos,
-    enteredTotal,
     enteredWord,
     filter
   );
 
+  wxString subj;
+  wxString op;
+  if(!force) //< Try to decide if we got to show AC anyway
+  {
+    operatorAndSubjGetLeftOfPos(
+      currentPos,
+      subj,
+      op
+    );
+
+    force = (
+      (wxT("##") == op) ||
+      (wxT("$$") == op) ||
+      (!subj.IsEmpty() && wxT("::") == op) ||
+      (!subj.IsEmpty() && wxT("#") == op) ||
+      (!subj.IsEmpty() && wxT("$") == op) ||
+      (!subj.IsEmpty() && wxT(".") == op)
+    );
+  }
+
   if(
     force || 
-    enteredTotal >= autoCompletionShowAfterCnt
+    enteredWord >= autoCompletionShowAfterCnt
   )
   {
     m_acList = autocompletionListPrepare(
       currentPos,
-      filter
+      filter,
+      subj,
+      op
     );
 
     if(!m_acList.IsEmpty())
