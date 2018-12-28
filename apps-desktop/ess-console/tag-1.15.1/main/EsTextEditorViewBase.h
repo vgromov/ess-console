@@ -200,7 +200,6 @@ protected:
   void onDblClick(wxStyledTextEvent& evt);
   virtual void onStcUiUpdate(wxStyledTextEvent& evt);
   virtual void onMarginClick(wxStyledTextEvent& evt);
-  virtual void onCharAdded(wxStyledTextEvent& evt);
   virtual void onAutoCompleting(wxStyledTextEvent& evt);
   void onContextMenu(wxContextMenuEvent& evt);
   void onGotoClosingBrace(wxCommandEvent& evt);

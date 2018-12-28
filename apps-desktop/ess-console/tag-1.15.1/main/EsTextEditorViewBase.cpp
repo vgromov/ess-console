@@ -94,7 +94,6 @@ EsTextEditorViewBase::EsTextEditorViewBase(wxWindow *parent, wxWindowID id, long
   Bind(wxEVT_STC_DOUBLECLICK, &EsTextEditorViewBase::onDblClick, this);
   Bind(wxEVT_STC_UPDATEUI, &EsTextEditorViewBase::onStcUiUpdate, this);
   Bind(wxEVT_STC_MARGINCLICK, &EsTextEditorViewBase::onMarginClick, this);
-  Bind(wxEVT_STC_CHARADDED, &EsTextEditorViewBase::onCharAdded, this);
   Bind(wxEVT_STC_AUTOCOMP_SELECTION, &EsTextEditorViewBase::onAutoCompleting, this);
 }
 //--------------------------------------------------------------------------------
@@ -106,7 +105,6 @@ EsTextEditorViewBase::~EsTextEditorViewBase()
   Unbind(wxEVT_STC_DOUBLECLICK, &EsTextEditorViewBase::onDblClick, this);
   Unbind(wxEVT_STC_UPDATEUI, &EsTextEditorViewBase::onStcUiUpdate, this);
   Unbind(wxEVT_STC_MARGINCLICK, &EsTextEditorViewBase::onMarginClick, this);
-  Unbind(wxEVT_STC_CHARADDED, &EsTextEditorViewBase::onCharAdded, this);
   Unbind(wxEVT_STC_AUTOCOMP_SELECTION, &EsTextEditorViewBase::onAutoCompleting, this);
 }
 //--------------------------------------------------------------------------------
@@ -390,12 +388,6 @@ void EsTextEditorViewBase::onStcUiUpdate(wxStyledTextEvent& evt)
 void EsTextEditorViewBase::onMarginClick(wxStyledTextEvent& evt)
 {
   // Do nothing by default
-}
-//--------------------------------------------------------------------------------
-
-void EsTextEditorViewBase::onCharAdded(wxStyledTextEvent& evt)
-{
-  // Do nothing by defaul
 }
 //--------------------------------------------------------------------------------
 
