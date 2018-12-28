@@ -79,7 +79,7 @@ protected:
   );
 
   // Prepare autocompletion list
-  wxString autocompletionListPrepare(int curPos, const EsString& filter);
+  wxString autocompletionListPrepare(int curPos, const EsString& filter, wxString subj, wxString op);
 
   // Show autocompletion list either forcibly, or after N chars entered
   void autocompletionShow(bool force = false);
