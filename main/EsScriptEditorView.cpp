@@ -86,6 +86,10 @@ m_tmrParser(
   this,
   EsSconsoleCmds::usrID_TMR_EVT_PARSE
 ),
+m_tmrAutoComplete(
+  this,
+  EsSconsoleCmds::usrID_TMR_EVT_AUTOCOMP
+),
 m_topCtx(nullptr),
 m_curlinePrev(-1),
 m_ctxAtPos(EsScriptParser::noneId),
@@ -93,7 +97,7 @@ m_parserStop(0),
 m_ctxParsed(false)
 {
   Bind(wxEVT_STC_MARGINCLICK, &EsScriptEditorView::onMarginClick, this);
-  Bind(wxEVT_TIMER, &EsScriptEditorView::onParserReparse, this);
+  Bind(wxEVT_TIMER, &EsScriptEditorView::onTimer, this);
 }
 //--------------------------------------------------------------------------------
 
@@ -504,14 +508,14 @@ void EsScriptEditorView::operatorAndSubjGetLeftOfPos(int curPos, wxString& subj,
   for(int pos = curPos; pos >= 0; --pos)
   {
     wxUniChar uc = GetCharAt(pos);
-
+    
     if(0 == static_cast<int>(uc))
       continue;
 
     if( uc == wxT(';') || !uc.IsAscii() )
       return;
 
-    if(wxIsspace(uc))
+    if(wxIsspace(uc) || wxIscntrl(uc))
     {
       if(searchStateSubj == state) //< We're collecting subj, break immediately
         return;
@@ -523,7 +527,7 @@ void EsScriptEditorView::operatorAndSubjGetLeftOfPos(int curPos, wxString& subj,
         state = searchStateSubjIdle;
       }
       else
-        continue;
+        continue; //< Skip space
     }
    
     if( !(wxIsalnum(uc) || wxT('_') == uc) ) //< We were idle, and it's non-word start collecting operator sequence
@@ -533,10 +537,13 @@ void EsScriptEditorView::operatorAndSubjGetLeftOfPos(int curPos, wxString& subj,
       else if(searchStateSubj == state) //< We were collecting subj. exit immediately
         return;
       
-      if( op.IsEmpty() )
-        op = uc;
-      else
-        op = uc + op;
+      if(searchStateOP == state)
+      {
+        if(op.IsEmpty())
+          op = uc;
+        else
+          op = uc + op;
+      }
     }
     else if( searchStateSubjIdle == state || searchStateOP == state || searchStateSubj == state ) //< We were still collecting op, in idle subj, or in collecting subj
     {
@@ -830,35 +837,56 @@ wxString EsScriptEditorView::autocompletionListPrepare(int curPos, const EsStrin
 void EsScriptEditorView::autocompletionShow(bool force /*= false*/)
 {
   int currentPos = GetCurrentPos();
-  int wordStartPos = WordStartPosition(
+
+  // Display the autocompletion list, emulating entered count of chars
+  int enteredTotal = currentPos - WordStartPosition( //< Count even non word chars on left to get entered chars
+    currentPos,
+    false
+  );
+
+  int wordStart = WordStartPosition( //< Get only word chars as filter
     currentPos,
     true
   );
+  int enteredWord = currentPos - wordStart;
+  if(enteredWord < 0)
+    enteredWord = 0;
 
-  // Display the autocompletion list, emulating entered count of chars
-  int entered = currentPos - wordStartPos;
   EsString filter;
-  if(entered < 0)
-    entered = 0;
+  if(enteredTotal < 0)
+    enteredTotal = 0;
   else
     filter = GetTextRange(
-      wordStartPos,
+      wordStart,
       currentPos
     ).wc_str();
 
-  if(force || entered >= autoCompletionShowAfterCnt)
-  {
-    if( !AutoCompActive() )
-      m_acList = autocompletionListPrepare(
-        currentPos,
-        filter
-      );
+  ES_DEBUG_TRACE(
+    esT("EsScriptEditorView::autocompletionShow(force=%d), curPos=%d, enteredTotal=%d enteredWord=%d, filter=%s"),
+    (int)force,
+    currentPos,
+    enteredTotal,
+    enteredWord,
+    filter
+  );
 
-    if( !m_acList.IsEmpty() )
+  if(
+    force || 
+    enteredTotal >= autoCompletionShowAfterCnt
+  )
+  {
+    m_acList = autocompletionListPrepare(
+      currentPos,
+      filter
+    );
+
+    if(!m_acList.IsEmpty())
       AutoCompShow(
-        entered, //< We're showing autocompletion on-demand here
+        enteredWord,
         m_acList
       );
+    else
+      AutoCompCancel();
   }
 }
 //--------------------------------------------------------------------------------
@@ -939,6 +967,8 @@ void EsScriptEditorView::currentExecutionLineSet(int line, bool set)
 
 void EsScriptEditorView::textSet(const EsString& text)
 {
+  m_tmrParser.Stop();
+  m_tmrAutoComplete.Stop();
   EsTextEditorViewBase::textSet(text);
   Refresh();
 }
@@ -981,20 +1011,26 @@ void EsScriptEditorView::onMarginClick(wxStyledTextEvent& evt)
 }
 //--------------------------------------------------------------------------------
 
-void EsScriptEditorView::onParserReparse(wxTimerEvent& evt)
+void EsScriptEditorView::onTimer(wxTimerEvent& evt)
 {
-  const EsString& in = textGet();
-  m_ctxParsed = m_ctxParser.parse(
-    in
-  );
+  int id = evt.GetId();
+  if(EsSconsoleCmds::usrID_TMR_EVT_PARSE == id)
+  {
+    const EsString& in = textGet();
+    m_ctxParsed = m_ctxParser.parse(
+      in
+    );
 
-  m_parserStop = m_ctxParser.stopGet();
+    m_parserStop = m_ctxParser.stopGet();
 
-  ES_DEBUG_TRACE(
-    esT("Current script source parsed: %d, stopped at %d"),
-    m_ctxParsed,
-    m_parserStop
-  );
+    ES_DEBUG_TRACE(
+      esT("Current script source parsed: %d, stopped at %d"),
+      m_ctxParsed,
+      m_parserStop
+    );
+  }
+  else if(EsSconsoleCmds::usrID_TMR_EVT_AUTOCOMP == id)
+    autocompletionShow();
 }
 //--------------------------------------------------------------------------------
 
@@ -1214,6 +1250,7 @@ void EsScriptEditorView::onBlockCommentToggle(wxCommandEvent& evt)
 
 void EsScriptEditorView::onCodeInsight(wxCommandEvent& evt)
 {
+  m_tmrAutoComplete.Stop();
   autocompletionShow(true); //< Show auto completion list despite the number of chars entered
 }
 //--------------------------------------------------------------------------------
@@ -1270,7 +1307,10 @@ void EsScriptEditorView::onStcUiUpdate(wxStyledTextEvent& evt)
 
   if(flags & wxSTC_UPDATE_CONTENT)
   {
+    m_tmrAutoComplete.Stop();
     m_tmrParser.Stop();
+    
+    m_tmrAutoComplete.StartOnce(autoCompTmo);
     m_tmrParser.StartOnce(reparseDelay);
   }
 
@@ -1288,35 +1328,6 @@ void EsScriptEditorView::onStcUiUpdate(wxStyledTextEvent& evt)
         EsScriptParser::noneId
     );
   }
-}
-//--------------------------------------------------------------------------------
-
-void EsScriptEditorView::onCharAdded(wxStyledTextEvent& evt)
-{
-  bool autocompletionForceShow = false;
-  int pos = GetCurrentPos();
-  if(pos > 1)
-  {
-    wxString subj, op;
-    operatorAndSubjGetLeftOfPos(
-      pos,
-      subj,
-      op,
-      false
-    );
-    
-    autocompletionForceShow = (
-      0 == op.Cmp(wxT("::")) || 
-      0 == op.Cmp(wxT("$$")) || 
-      0 == op.Cmp(wxT("##")) || 
-      0 == op.Cmp(wxT("#"))
-    );
-  }
-
-  autocompletionShow(
-    autocompletionForceShow
-  );
-  // TODO: Calltip show
 }
 //--------------------------------------------------------------------------------
 

@@ -60,6 +60,7 @@ namespace EsSconsoleCmds
     /// Event pump timer
     usrID_TMR_EVT_PUMP = escoreguiID_HIGHEST,
     usrID_TMR_EVT_PARSE,
+    usrID_TMR_EVT_AUTOCOMP,
     /// Editor Notebook
     usrID_NB_EDITOR,
     /// File commands

@@ -7,6 +7,7 @@ public:
   enum {
     reparseDelay                = 2000,  //< Reparse changed script document after specified period of ms
     autoCompletionShowAfterCnt  = 2,     //< Show autocompletion after that number of word characters typed
+    autoCompTmo                 = 500,
     // Autocompletion category IDs
     //
     acIdKeyword                 = 0,
@@ -97,9 +98,8 @@ protected:
   virtual void onStcUiUpdate(wxStyledTextEvent& evt) ES_OVERRIDE;
   virtual void onCmdUiUpdate(wxUpdateUIEvent& evt) ES_OVERRIDE;
   virtual void onMarginClick(wxStyledTextEvent& evt) ES_OVERRIDE;
-  virtual void onCharAdded(wxStyledTextEvent& evt) ES_OVERRIDE;
   virtual void onAutoCompleting(wxStyledTextEvent& evt) ES_OVERRIDE;
-  void onParserReparse(wxTimerEvent & evt);
+  void onTimer(wxTimerEvent & evt);
   void onFileOpenAtCursor(wxCommandEvent& evt);
   void onFileLocationOpenAtCursor(wxCommandEvent& evt);
   void onLineCommentToggle(wxCommandEvent& evt);
@@ -123,7 +123,8 @@ protected:
 
 private:
   EvtHandler m_handler;
-  wxTimer m_tmrParser;  
+  wxTimer m_tmrParser;
+  wxTimer m_tmrAutoComplete;
   EsScriptParser m_ctxParser;
   wxString m_acList;
   const EsScriptParser::Node* m_topCtx;
