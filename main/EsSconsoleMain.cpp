@@ -493,53 +493,53 @@ using namespace EsSconsoleCmds;
 //--------------------------------------------------------------------------------
 
 EsSconsoleMain::EsSconsoleMain() :
-  wxFrame(
-    nullptr,
-    wxID_ANY,
-    wxGetApp().GetAppDisplayName(),
-    wxDefaultPosition,
-    EsUtilities::appMainFrameMinSizeGet(),
-    wxDEFAULT_FRAME_STYLE
-  ),
-#if defined(__WXMSW__)
-  m_au(
-    FRAMEWORK_VENDOR_SHORT,
-    PRODUCT_NAME,
-    PRODUCT_VER_STR
-  ),
+wxFrame(
+  nullptr,
+  wxID_ANY,
+  wxGetApp().GetAppDisplayName(),
+  wxDefaultPosition,
+  EsUtilities::appMainFrameMinSizeGet(),
+  wxDEFAULT_FRAME_STYLE
+),
+#if ES_OS_WINDOWS == ES_OS
+m_au(
+  FRAMEWORK_VENDOR_SHORT,
+  PRODUCT_NAME,
+  PRODUCT_VER_STR
+),
 #endif
-  m_compiler(*this),
-  m_handler(*this),
-  m_tmrEvtPump(
-    this,
-    usrID_TMR_EVT_PUMP
-  ),
-  m_mru(
-    wxID_FILE9-wxID_FILE+1,
-    wxID_FILE
-  ),
-  m_mnu(nullptr),
-  m_mnuFile(nullptr),
-  m_mnuFileMRU(nullptr),
-  m_mnuEdit(nullptr),
-  m_mnuEditBm(nullptr),
-  m_mnuWindow(nullptr),
-  m_mnuScript(nullptr),
-  m_mnuOptions(nullptr),
-  m_mnuHelp(nullptr),
-  m_sb(nullptr),
-  m_tb(nullptr),
-  m_nbEditor(nullptr),
-  m_log(nullptr),
-  m_logComp(nullptr),
-  m_docList(nullptr),
-  m_batchCmds(nullptr),
-  m_activeView(nullptr),
-  m_dlgFr(nullptr),
-  m_initialized(false),
-  m_compiling(false),
-  m_compiledOk(false),
-  m_changingDocptrs(false)
+m_compiler(*this),
+m_handler(*this),
+m_tmrEvtPump(
+  this,
+  usrID_TMR_EVT_PUMP
+),
+m_mru(
+  wxID_FILE9-wxID_FILE+1,
+  wxID_FILE
+),
+m_mnu(nullptr),
+m_mnuFile(nullptr),
+m_mnuFileMRU(nullptr),
+m_mnuEdit(nullptr),
+m_mnuEditBm(nullptr),
+m_mnuWindow(nullptr),
+m_mnuScript(nullptr),
+m_mnuOptions(nullptr),
+m_mnuHelp(nullptr),
+m_sb(nullptr),
+m_tb(nullptr),
+m_nbEditor(nullptr),
+m_log(nullptr),
+m_logComp(nullptr),
+m_docList(nullptr),
+m_batchCmds(nullptr),
+m_activeView(nullptr),
+m_dlgFr(nullptr),
+m_initialized(false),
+m_compiling(false),
+m_compiledOk(false),
+m_changingDocptrs(false)
 {
   wxArtProvider::Push(
     new EsSconsoleArtProvider
@@ -572,7 +572,8 @@ EsSconsoleMain::~EsSconsoleMain()
   m_mgrAui.UnInit();
 }
 //--------------------------------------------------------------------------------
-
+#include <escomm-gui/escomm-gui.h>
+#pragma comment(lib, "C:/Users/gromo/Documents/Projects/ess-console-1.15.1/bin/Debug/escommgui_v1_24_2_2_vc141.lib")
 void EsSconsoleMain::init()
 {
   if(m_initialized)
@@ -586,12 +587,15 @@ void EsSconsoleMain::init()
 
   m_tmrEvtPump.StartOnce(evtPumpTmo);
 
-#if defined(__WXMSW__)
+#if ES_OS_WINDOWS == ES_OS
   m_au.updateCastUrlSet(
     wxSystemOptions::GetOption(ES_APP_OPT_AUTO_UPDATE_URL).t_str()
   );
   m_au.updateCheck(false);
 #endif
+
+  EsCommConfigDlg dlg(this);
+  dlg.ShowModal();
 }
 //--------------------------------------------------------------------------------
 
