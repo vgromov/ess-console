@@ -1,5 +1,5 @@
 # top-level cmakefile for ekosfera framework
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.7)
 project(ess-console)
 
 include(${PROJECT_BINARY_DIR}/escmake/escommon.defs.cmake)
