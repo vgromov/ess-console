@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.7)
 project(ess-console-app)
 
 # wxWidgets dependencies
@@ -110,7 +110,7 @@ endif(WIN32)
 set(ess_console_Exe ess-console_${ESSCONSOLE_VERSION_SUFFIX}_${ESCOMMON_BIN_SUFFIX}${ESCOMMON_COMPILER_VERSION} CACHE INTERNAL "" FORCE)
 
 ES_SPECIFY_PRECOMPILED_HEADER("ess_console_pch.h" "ess_console.cpp" ess_console_SRCS)
-ES_SPECIFY_HEADER_FILES(ess_console_SRCS headerExtensions)
+ES_SPECIFY_HEADER_FILES(ess_console_SRCS ${ES_HEADER_EXTENSIONS})
 
 if(WIN32)
   add_executable( 
