@@ -31,12 +31,12 @@
 #define VENDOR_SHORT     "@applicationVendorShort@"
 #define VENDOR_URL       "@applicationURL@"
 # define SUPPORT_URL     "@applicationURL@"
-# define UPDATES_URL     "@applicationURL@/файлы/category/23-esfwx-tools"
+# define UPDATES_URL     "@applicationURL@@applicationUpdPath@"
 #define VENDOR_EMAIL     "@applicationVendorEmail@"
 #define VENDOR_PHONE     "@applicationVendorPhone@"
 
 #define PRODUCT_VERSION_STRING "@application_VER_MAJOR@.@application_VER_MINOR@.@application_BUILD_NUM@"
-#define COPYRIGHT         "cm:STR_COPYRIGHT"
+#define COPYRIGHT         "@applicationCopyright@"
 #define UNINSTALL_KEY     "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\"+APP_UID
 #define HKLM_UNINSTALL_KEY "HKLM\"+UNINSTALL_KEY
 

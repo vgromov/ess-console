@@ -507,6 +507,10 @@ void EsScriptEditorView::operatorAndSubjGetLeftOfPos(int curPos, wxString& subj,
   int state = searchStateIdle;
   for(int pos = curPos; pos >= 0; --pos)
   {
+    int style = GetStyleAt(pos);
+    if( isStyleInRange(style, stcComment, stcPreprocessorCommentDoc) )
+      break;
+
     wxUniChar uc = GetCharAt(pos);
     
     if(0 == static_cast<int>(uc))
@@ -837,6 +841,9 @@ wxString EsScriptEditorView::autocompletionListPrepare(int curPos, const EsStrin
 void EsScriptEditorView::autocompletionShow(bool force /*= false*/)
 {
   int currentPos = GetCurrentPos();
+  int style = GetStyleAt(currentPos);
+  if( isStyleInRange(style, stcComment, stcPreprocessorCommentDoc) )
+    return;
 
   // Display the autocompletion list, emulating entered count of chars
   int wordStart = WordStartPosition( //< Get only word chars as filter

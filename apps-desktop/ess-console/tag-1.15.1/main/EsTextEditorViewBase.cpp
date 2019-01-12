@@ -84,6 +84,7 @@ EsTextEditorViewBase::EsTextEditorViewBase(wxWindow *parent, wxWindowID id, long
   ),
   m_handler(*this),
   m_mnuEditBm(nullptr),
+  m_lexNode(nullptr),
   m_searchReplacePos(0),
   m_braceBeg(-1),
   m_braceEnd(-1),
@@ -106,6 +107,40 @@ EsTextEditorViewBase::~EsTextEditorViewBase()
   Unbind(wxEVT_STC_UPDATEUI, &EsTextEditorViewBase::onStcUiUpdate, this);
   Unbind(wxEVT_STC_MARGINCLICK, &EsTextEditorViewBase::onMarginClick, this);
   Unbind(wxEVT_STC_AUTOCOMP_SELECTION, &EsTextEditorViewBase::onAutoCompleting, this);
+}
+//--------------------------------------------------------------------------------
+
+bool EsTextEditorViewBase::isStyle(int hlStyleId, EsSyntaxHighlighterId hlId) const ES_NOTHROW
+{
+  if( !isStyled() )
+    return false;
+
+  ES_ASSERT(m_lexNode);
+  ES_ASSERT(hlId > -1);
+  ES_ASSERT(hlId < stcItemsCount);
+
+  return hlStyleId == m_lexNode->highlighters[hlId].lexHlId;
+}
+//--------------------------------------------------------------------------------
+
+bool EsTextEditorViewBase::isStyleInRange(int hlStyleId, EsSyntaxHighlighterId hlIdStart, EsSyntaxHighlighterId hlIdEnd) const ES_NOTHROW
+{
+  if( !isStyled() )
+    return false;
+
+  ES_ASSERT(m_lexNode);
+  ES_ASSERT(hlIdStart > -1);
+  ES_ASSERT(hlIdStart < stcItemsCount);
+  ES_ASSERT(hlIdEnd > -1);
+  ES_ASSERT(hlIdEnd < stcItemsCount);
+  if( hlIdStart > hlIdEnd )
+    std::swap(hlIdStart, hlIdEnd);
+  
+  for(int hlId = hlIdStart; hlId <= hlIdEnd; ++hlId)
+    if(hlStyleId == m_lexNode->highlighters[hlId].lexHlId)
+      return true;
+
+  return false;
 }
 //--------------------------------------------------------------------------------
 
@@ -523,9 +558,15 @@ void EsTextEditorViewBase::lexerSet(const EsLexDbNode& lexNode)
   StyleClearAll();
 
   if(lexNode.isNull())
+  {
+    m_lexNode = nullptr;
     SetLexer(wxSTC_LEX_NULL);
+  }
   else
+  {
+    m_lexNode = &lexNode;
     SetLexer(lexNode.lexId);
+  }
 
   stylesSetCommon();
   lexerStylesApply(lexNode);

@@ -572,8 +572,7 @@ EsSconsoleMain::~EsSconsoleMain()
   m_mgrAui.UnInit();
 }
 //--------------------------------------------------------------------------------
-#include <escomm-gui/escomm-gui.h>
-#pragma comment(lib, "C:/Users/gromo/Documents/Projects/ess-console-1.15.1/bin/Debug/escommgui_v1_24_2_2_vc141.lib")
+
 void EsSconsoleMain::init()
 {
   if(m_initialized)
@@ -593,9 +592,6 @@ void EsSconsoleMain::init()
   );
   m_au.updateCheck(false);
 #endif
-
-  EsCommConfigDlg dlg(this);
-  dlg.ShowModal();
 }
 //--------------------------------------------------------------------------------
 
