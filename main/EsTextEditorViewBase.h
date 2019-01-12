@@ -201,7 +201,7 @@ protected:
   void selectionEncloseIn(const wxString& left, const wxString& right);
 
   // WX events
-  void onEditorContentChange(wxStyledTextEvent& evt);
+  virtual void onEditorContentChange(wxStyledTextEvent& evt);
   void onDblClick(wxStyledTextEvent& evt);
   virtual void onStcUiUpdate(wxStyledTextEvent& evt);
   virtual void onMarginClick(wxStyledTextEvent& evt);

@@ -1313,6 +1313,22 @@ void EsScriptEditorView::onCmdUiUpdate(wxUpdateUIEvent& evt)
 }
 //--------------------------------------------------------------------------------
 
+void EsScriptEditorView::onEditorContentChange(wxStyledTextEvent& evt)
+{
+  EsTextEditorViewBase::onEditorContentChange(evt);
+
+  int modType = evt.GetModificationType();
+  if( modType & (wxSTC_MOD_INSERTTEXT|wxSTC_MOD_DELETETEXT) )
+  {
+    m_tmrAutoComplete.Stop();
+    m_tmrParser.Stop();
+    
+    m_tmrAutoComplete.StartOnce(autoCompTmo);
+    m_tmrParser.StartOnce(reparseDelay);
+  }
+}
+//--------------------------------------------------------------------------------
+
 void EsScriptEditorView::onStcUiUpdate(wxStyledTextEvent& evt)
 {
   EsTextEditorViewBase::onStcUiUpdate(evt);
@@ -1325,15 +1341,6 @@ void EsScriptEditorView::onStcUiUpdate(wxStyledTextEvent& evt)
     esT("EsScriptEditorView::onStcUiUpdate flags=0x%08X"),
     flags
   );
-
-  if(flags & wxSTC_UPDATE_CONTENT)
-  {
-    m_tmrAutoComplete.Stop();
-    m_tmrParser.Stop();
-    
-    m_tmrAutoComplete.StartOnce(autoCompTmo);
-    m_tmrParser.StartOnce(reparseDelay);
-  }
 
   if(flags & (wxSTC_UPDATE_SELECTION|wxSTC_UPDATE_CONTENT))
   {
