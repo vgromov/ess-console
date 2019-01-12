@@ -95,6 +95,7 @@ protected:
   void operatorAndSubjGetLeftOfPos(int curPos, wxString& subj, wxString& op, bool searchSubj = true);
   
   // WX handlers
+  virtual void onEditorContentChange(wxStyledTextEvent& evt) ES_OVERRIDE;
   virtual void onStcUiUpdate(wxStyledTextEvent& evt) ES_OVERRIDE;
   virtual void onCmdUiUpdate(wxUpdateUIEvent& evt) ES_OVERRIDE;
   virtual void onMarginClick(wxStyledTextEvent& evt) ES_OVERRIDE;
