@@ -62,6 +62,11 @@ protected:
 public:
   virtual ~EsTextEditorViewBase();
 
+  bool isStyled() const ES_NOTHROW { return nullptr != m_lexNode; }
+
+  bool isStyle(int hlStyleId, EsSyntaxHighlighterId hlId) const ES_NOTHROW;
+  bool isStyleInRange(int hlStyleId, EsSyntaxHighlighterId hlIdStart, EsSyntaxHighlighterId hlIdEnd) const ES_NOTHROW;
+
   void stylesInit();
 
   void currentPositionSet(int line, int col);
@@ -218,6 +223,7 @@ protected:
   wxMenuPtr m_pmnu;     //< Editor pop-up menu
   wxMenuPtr m_pmnuCtx;  //< Editor custom context menu part
   wxMenu* m_mnuEditBm;
+  const EsLexDbNode* m_lexNode;
   EsDocumentIntf::Ptr m_doc; ///< Optional attached document
   wxString m_txtLookup;
   std::set<int> m_tags;
