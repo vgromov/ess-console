@@ -8,6 +8,7 @@
 #define PRODUCT_URL          esT("@applicationURL@")
 #define PRODUCT_AUTHOR       esT("@applicationAuthor@")
 #define PRODUCT_DESCRIPTION  esT("@applicationName@\nBased on:\n@framework@ @framework_VER_MAJOR@.@framework_VER_MINOR@.@framework_BUILD_NUM@")
+#define PRODUCT_COPYRIGHT    esT("@applicationCopyright@")
 
 #ifdef _DEBUG
 #	define PRODUCT_VERSION  PRODUCT_VER_STR esT(" DEBUG")
