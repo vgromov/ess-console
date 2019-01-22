@@ -60,22 +60,6 @@ add_subdirectory(esfwx-gui)
 # Main application
 add_subdirectory(main)
 
-# escore-gui dependencies
-add_dependencies(
-  ${escoreguiLib} 
-	${escoreLib} 
-)
-
-# application
-add_dependencies(
-  ${ess_console_Exe} 
-	${escoreLib} 
-	${escommLib}
-	${esmathLib}
-  ${esscriptLib}
-  ${escoreguiLib}
-)
-
 # Get WX version string concatenated, to use in setup
 string(
   REPLACE 
