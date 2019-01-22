@@ -191,6 +191,16 @@ set_target_properties(
   COMPILE_DEFINITIONS "${ESSCON_DEFS}"
 )
 
+# application
+add_dependencies(
+  ${ess_console_Exe} 
+	${ESCORE_LIB_TARGET} 
+	${ESCOMM_LIB_TARGET}
+	${ESMATH_LIB_TARGET}
+  ${ESSCRIPT_LIB_TARGET}
+  ${ESCOREGUI_LIB_TARGET}
+)
+
 message(
   STATUS
   "${targetName} ESSCON_DEFS=>${ESSCON_DEFS} ESSCON_OPTS=>${ESSCON_OPTS}"
