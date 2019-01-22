@@ -2417,7 +2417,10 @@ void EsSconsoleMain::onScriptUiUpdate(wxUpdateUIEvent& evt)
   case usrID_DEBUG:
     evt.Enable(
       binaryScriptIsDebuggable() &&
-      (!binaryScriptIsRunning() || (binaryScriptIsRunning() && binaryScriptIsDebugging()))
+      (
+        !binaryScriptIsRunning() || 
+        binaryScriptIsDebugging()
+      )
     );
     break;
   case usrID_DEBUG_STEP:
@@ -3114,7 +3117,7 @@ void EsSconsoleMain::onHelpAbout(wxCommandEvent& ES_UNUSED(evt))
   aboutInfo.SetName(PRODUCT_NAME);
   aboutInfo.SetVersion(PRODUCT_VERSION);
   aboutInfo.SetDescription(PRODUCT_DESCRIPTION);
-  aboutInfo.SetCopyright(FRAMEWORK_COPYRIGHT);
+  aboutInfo.SetCopyright(PRODUCT_COPYRIGHT);
   aboutInfo.SetWebSite(PRODUCT_URL);
   aboutInfo.AddDeveloper(PRODUCT_AUTHOR);
 
@@ -4636,12 +4639,10 @@ void EsSconsoleMain::currentDocPtrUpdate()
 bool EsSconsoleMain::currentDocumentCanCompile() const
 {
   return (DocPtrType::Script == m_docPtrs.m_docPtrType) &&
-    (!m_docPtrs.m_compiledDocPtr ||
     (
-      m_docPtrs.m_compiledDocPtr &&
+      !m_docPtrs.m_compiledDocPtr ||
       !m_docPtrs.m_compiledDocPtr->isRunning()
-    )
-  );
+    );
 }
 //--------------------------------------------------------------------------------
 
