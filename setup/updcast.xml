@@ -7,6 +7,12 @@ http://vgromov.ru/dl/esfwx/tools/essconsole/updcast.xml
 <description>Список улучшений и исправлений</description>
 <language>ru</language>
 <item>
+<title>Версия 1.15.2</title>
+<pubDate>01.22.2019 16:10:00 GMT</pubDate>
+<sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.15.2.html</sparkle:releaseNotesLink>
+<enclosure url="http://vgromov.ru/dl/esfwx/tools/essconsole/ess-console.1.15.2.setup32.exe" sparkle:version="1.15.2" length="18407280" type="application/octet-stream"/>
+</item>
+<item>
 <title>Версия 1.15.1</title>
 <pubDate>01.12.2019 18:10:00 GMT</pubDate>
 <sparkle:releaseNotesLink xml:lang="ru">http://vgromov.ru/dl/esfwx/tools/essconsole/1.15.1.html</sparkle:releaseNotesLink>

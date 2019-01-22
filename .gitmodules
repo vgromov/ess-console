@@ -14,3 +14,11 @@
 	path = esfwx-gui
 	url = https://github.com/vgromov/esfwx-gui-wx.git
 	branch = master
+[submodule "setup/iss-es"]
+	path = setup/iss-es
+	url = https://github.com/vgromov/es-iss.git
+	branch = master
+[submodule "setup/winsparkle"]
+	path = setup/winsparkle
+	url = https://github.com/vgromov/es-winsparkle.git
+	branch = master
