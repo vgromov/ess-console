@@ -363,8 +363,8 @@ void EsSconsoleOutputBase::txtParseForFilePositionAndGoto(const wxString& txt, b
 
   EsRegEx re(
     esT("(?:in\\s+'([^']+)'\\s+)?at\\s+\\(([0-9]+)(?:,\\s?([0-9]+))?\\)"),
-    static_cast<ulong>(EsRegExCompileFlag::DEFAULT)|
-    static_cast<ulong>(EsRegExCompileFlag::ICASE)
+    as_<ulong>(EsRegExCompileFlag::DEFAULT)|
+    as_<ulong>(EsRegExCompileFlag::ICASE)
   );
   ES_ASSERT(re.isOk());
 

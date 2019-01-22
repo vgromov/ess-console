@@ -128,7 +128,7 @@ void EsSyntaxHighlighter::lexStylesApply(wxStyledTextCtrl* stc, const EsLexDbNod
     stc->StyleSetSpec(
       node.lexHlId,
       EsSyntaxHighlighter::specStrGet(
-        static_cast<EsSyntaxHighlighterId>(id)
+        as_<EsSyntaxHighlighterId>(id)
       )
     );
 

@@ -116,7 +116,7 @@ void EsSconsoleCommandLineParams::parse(wxCmdLineParser& parser, EsSconsoleParam
 
       params.m_includes.push_back(
         fname.pathGet(
-          static_cast<ulong>(EsPathFlag::AsIs)
+          as_<ulong>(EsPathFlag::AsIs)
         )
       );
     }
@@ -133,7 +133,7 @@ void EsSconsoleCommandLineParams::parse(wxCmdLineParser& parser, EsSconsoleParam
 
       params.m_linkPaths.push_back(
         fname.pathGet(
-          static_cast<ulong>(EsPathFlag::AsIs)
+          as_<ulong>(EsPathFlag::AsIs)
         )
       );
     }
@@ -227,7 +227,7 @@ void EsSconsoleCommandLineParams::parse(wxCmdLineParser& parser, EsSconsoleParam
       );
 
       m_ofile = ofname.pathGet(
-        static_cast<ulong>(EsPathFlag::AsIs)
+        as_<ulong>(EsPathFlag::AsIs)
       ).c_str();
     }
 
