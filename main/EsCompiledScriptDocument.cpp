@@ -392,7 +392,7 @@ void EsCompiledScriptDocument::doWrite(cr_EsVariant target, cr_EsVariant params)
 
   EsFile f(
     fpathStr,
-    static_cast<ulong>(EsFileFlag::Write)
+    as_<ulong>(EsFileFlag::Write)
   );
 
   if( f.open() )
@@ -533,8 +533,8 @@ void EsCompiledScriptDocument::translatablesSave(const EsString& dest)
 
   EsFile f(
     path.pathGet(),
-    static_cast<ulong>(EsFileFlag::Write) |
-    static_cast<ulong>(EsFileFlag::Text)
+    as_<ulong>(EsFileFlag::Write) |
+    as_<ulong>(EsFileFlag::Text)
   );
 
   if( f.open() )
