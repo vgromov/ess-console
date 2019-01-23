@@ -2,10 +2,6 @@
 	path = escmake
 	url = https://github.com/vgromov/escmake.git
 	branch = master
-[submodule "scripts-core"]
-	path = scripts-core
-	url = https://github.com/vgromov/scripts-core.git
-	branch = master
 [submodule "esfwx"]
 	path = esfwx
 	url = https://github.com/vgromov/esfwx.git
@@ -21,4 +17,8 @@
 [submodule "setup/winsparkle"]
 	path = setup/winsparkle
 	url = https://github.com/vgromov/es-winsparkle.git
+	branch = master
+[submodule "scripts-core"]
+	path = scripts-core
+	url = https://github.com/vgromov/scripts-core.git
 	branch = master
