@@ -41,7 +41,7 @@ void EsDocument::keySet(const EsVariant& key)
   {
     if(isManaged())
     {
-      EsDocumentManager* mgr = ES_INTFPTR_TO_OBJECTPTR<EsDocumentManager, EsDocumentManagerIntf::Ptr>(m_mgr);
+      EsDocumentManager* mgr = ES_INTFPTR_TO_OBJECTPTR<EsDocumentManager>(m_mgr);
       ES_ASSERT(mgr);
 
       mgr->documentKeyCheck(key);
@@ -129,7 +129,7 @@ void EsDocument::write(cr_EsVariant& key, cr_EsVariant& params)
 {
   ES_ASSERT(isManaged());
 
-  EsDocumentManager* mgr = ES_INTFPTR_TO_OBJECTPTR<EsDocumentManager, EsDocumentManagerIntf::Ptr>(m_mgr);
+  EsDocumentManager* mgr = ES_INTFPTR_TO_OBJECTPTR<EsDocumentManager>(m_mgr);
   ES_ASSERT(mgr);
 
   bool keyChange = keyGet() != key;
