@@ -1,0 +1,81 @@
+﻿// SETUP_BITS must be either "32" or "64"
+//
+
+#if 0 == Defined(SETUP_BITS)
+# define SETUP_BITS             "32"
+#endif           
+
+#define COMPILER_VER            "@ESCOMMON_BIN_SUFFIX@@ESCOMMON_COMPILER_VERSION@"
+        
+#define SETUP_SUFFIX            "setup"+SETUP_BITS
+        
+#define PRODUCT_NAME            "@applicationName@"
+#define APP_NAME_BASE           "@applicationName@"
+#define APP_FILE_NAME           "@applicationFileName@"
+
+#define ESCORE_VER_SUFFIX       "@ESCORE_VERSION_SUFFIX@"
+#define ESCOMM_VER_SUFFIX       "@ESCOMM_VERSION_SUFFIX@"
+#define ESMATH_VER_SUFFIX       "@ESMATH_VERSION_SUFFIX@"
+#define ESSCRIPT_VER_SUFFIX     "@ESSCRIPT_VERSION_SUFFIX@"
+#define ESCOREGUI_VER_SUFFIX    "@ESCORE_GUI_VERSION_SUFFIX@"
+#define ESMDI_VER_SUFFIX        "@ESMDI_VERSION_SUFFIX@"
+#define ESMDIGUI_VER_SUFFIX     "@ESMDI_GUI_VERSION_SUFFIX@"
+
+#define APP_VER_SUFFIX          "@ESSCONSOLE_VERSION_SUFFIX@"
+        
+#if "32" == SETUP_BITS        
+#  define APP_UID               "@applicationMutex@"
+#elif "64" == SETUP_BITS        
+#  define APP_UID               "@applicationMutex64@"
+#endif
+#define PRODUCT_NAME_INTERNAL   "@applicationFileName@"
+#define VENDOR                  "@applicationVendor@"
+#define VENDOR_SHORT            "@applicationVendorShort@"
+#define VENDOR_URL              "@applicationURL@"
+# define SUPPORT_URL            "@applicationURL@"
+# define UPDATES_URL            "@applicationURL@@applicationUpdPath@"
+#define VENDOR_EMAIL            "@applicationVendorEmail@"
+#define VENDOR_PHONE            "@applicationVendorPhone@"
+
+#define PRODUCT_VERSION_STRING  "@application_VER_MAJOR@.@application_VER_MINOR@.@application_BUILD_NUM@"
+#define COPYRIGHT               "@applicationCopyright@"
+#define UNINSTALL_KEY           "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\"+APP_UID
+#define HKLM_UNINSTALL_KEY      "HKLM\"+UNINSTALL_KEY
+
+#define WINSPARKLE_BITS         SETUP_BITS
+#define WINSPARKLE_DEST         "{app}"
+#define WINSPARKLE_SRC          ""
+      
+#if "32" == SETUP_BITS        
+#  define VCREDIST_BITS_SUFFIX  "x86"
+#elif "64" == SETUP_BITS        
+#  define VCREDIST_BITS_SUFFIX  "x64"
+#endif
+
+#define VCREDIST_ROOT           "@MSVC_REDIST_DIR@"
+#define VCREDIST_YEAR           "@MSVC_REDIST_YEAR@"
+      
+#define BIN_ROOT                "..\bin"
+
+#define APP_BIN_SRC             BIN_ROOT+"\Release"
+#define APP_DIR                 APP_NAME_BASE + SETUP_BITS
+#define APP_FILE_DEST           APP_FILE_NAME + ".exe"
+      
+#define APP_LOCALES_SRC         BIN_ROOT+"\locale"
+#define APP_ICO_SRC             "..\main\res\"
+
+#if "32" == SETUP_BITS        
+#  define WX_BITS_SUFFIX        ""
+#elif "64" == SETUP_BITS        
+#  define WX_BITS_SUFFIX        "_x64"
+#endif      
+#define WX_REDIST               "@wxWidgets_ROOT_DIR@\lib\" + COMPILER_VER + WX_BITS_SUFFIX + "_dll"
+#define WX_VER                  "@ES_WXWIDGETS_VERSION@u"
+      
+#define HELP_CORE_DIR           "..\esfwx\doc"
+      
+#define SETUP_OUTPUT_DIR        BIN_ROOT+"\setup"
+#define SETUP_OUTPUT_NAME       PRODUCT_NAME_INTERNAL+"."+PRODUCT_VERSION_STRING+"."+SETUP_SUFFIX
+
+#define INSTALLER_ICON          "ess_console_Icon.ico"
+#define UNINSTALLER_ICON        "ess_console_Icon.ico"

@@ -1,0 +1,25 @@
+#ifndef _product_version_h_
+#define _product_version_h_
+
+#define PRODUCT_VENDOR_SHORT esT("@applicationVendorShort@")
+#define PRODUCT_VENDOR       esT("@applicationVendor@")
+#define PRODUCT_NAME		     esT("@applicationName@")
+#define PRODUCT_VER_STR      esT("@application_VER_MAJOR@.@application_VER_MINOR@.@application_BUILD_NUM@")
+#define PRODUCT_URL          esT("@applicationURL@")
+#define PRODUCT_AUTHOR       esT("@applicationAuthor@")
+#define PRODUCT_DESCRIPTION  esT("@applicationName@\nBased on:\n@framework@ @framework_VER_MAJOR@.@framework_VER_MINOR@.@framework_BUILD_NUM@")
+#define PRODUCT_COPYRIGHT    esT("@applicationCopyright@")
+
+#ifdef _DEBUG
+#	define PRODUCT_VERSION  PRODUCT_VER_STR esT(" DEBUG")
+#else
+#	define PRODUCT_VERSION  PRODUCT_VER_STR
+#endif
+
+#ifdef _WIN64
+# define ES_ESSCONSOLE_APP_MUTEX "@applicationMutex64@"
+#else
+# define ES_ESSCONSOLE_APP_MUTEX "@applicationMutex@"
+#endif
+
+#endif // _product_version_h_

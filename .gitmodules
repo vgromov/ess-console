@@ -1,0 +1,16 @@
+[submodule "escmake"]
+	path = escmake
+	url = https://github.com/vgromov/escmake
+	branch = 1.0
+[submodule "esfwx"]
+	path = esfwx
+	url = https://github.com/vgromov/esfwx
+	branch = 1.25.0
+[submodule "esfwx-gui"]
+	path = esfwx-gui
+	url = https://github.com/vgromov/esfwx-gui-wx
+	branch = 1.25.0
+[submodule "scripts-core"]
+	path = scripts-core
+	url = https://github.com/vgromov/scripts-core
+	branch = 2.2
