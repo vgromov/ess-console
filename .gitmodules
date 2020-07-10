@@ -14,3 +14,11 @@
 	path = scripts-core
 	url = https://github.com/vgromov/scripts-core
 	branch = 2.2
+[submodule "setup/winsparkle"]
+	path = setup/winsparkle
+	url = https://github.com/vgromov/es-winsparkle
+	branch = 0.5.3
+[submodule "setup/iss-es"]
+	path = setup/iss-es
+	url = https://github.com/vgromov/es-iss
+	branch = 1.0
